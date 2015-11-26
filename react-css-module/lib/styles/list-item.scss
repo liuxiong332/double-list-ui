@@ -1,0 +1,17 @@
+
+.listItem {
+  padding: 2px 0px;
+  margin-bottom: 5px;
+}
+
+.listItemActive {
+  composes: listItem;
+  background: #DFd;
+  border: solid 1px #0F0;
+}
+
+.listItemButton {
+  cursor: pointer;
+  float: right;
+  margin-right: 0.5em;
+}

@@ -1,9 +1,14 @@
 
-.icon {
+.listItemIcon {
   padding-left: 0.5em;
   padding-right: 0.5em;
 }
 
 .disabled {
   color: #BBB;
+}
+
+.listItemLabel {
+  max-width: 90%;
+  overflow: hidden;
 }

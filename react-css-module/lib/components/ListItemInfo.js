@@ -16,11 +16,12 @@ var ListItemInfo = React.createClass({
   render() {
     let disabled = this.props.disabled;
     let disabledClass = {[styles.disabled]: disabled};
-    let iconClass = classnames(styles.icon, disabledClass);
+    let iconClass = classnames(styles.listItemIcon, disabledClass);
+    let labelClass = classnames(styles.listItemLabel, disabledClass);
     return (
       <span>
         <Glyphicon glyph="star" className={iconClass}/>
-        <span className={classnames(disabledClass)}>{this.props.label}</span>
+        <span className={labelClass}>{this.props.label}</span>
       </span>
     );
   }
