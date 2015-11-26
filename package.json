@@ -1,0 +1,24 @@
+{
+  "name": "double-list-ui",
+  "version": "1.0.0",
+  "description": "The web double-list UI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liuxiong332/double-list-ui.git"
+  },
+  "keywords": [
+    "React",
+    "css-module",
+    "web"
+  ],
+  "author": "liuxiong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liuxiong332/double-list-ui/issues"
+  },
+  "homepage": "https://github.com/liuxiong332/double-list-ui#readme"
+}
