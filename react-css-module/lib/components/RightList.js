@@ -2,6 +2,7 @@ import React from 'react'
 import {Glyphicon} from 'react-bootstrap'
 import {DeselectListItemContent} from './ListItemContent'
 import ListItemWrapper from './ListItemWrapper'
+import styles from '../styles/right-list'
 
 var RightListItem = React.createClass({
   render() {
@@ -14,9 +15,9 @@ var RightListItem = React.createClass({
 var DeselectAllItem = React.createClass({
   render() {
     return (
-      <div>
-        <span>Selected Items</span>
-        <Glyphicon glyph="chevron-left" onClick={this.props.onClick}/>
+      <div className={styles.selectBar} onClick={this.props.onClick}>
+        <Glyphicon glyph="chevron-left" className={styles.selectButton} />
+        <span className={styles.selectLabel}>Selected Items</span>
       </div>
     );
   }
@@ -36,7 +37,7 @@ var RightList = React.createClass({
       listItems.push(<RightListItem key={label} label={label} index={i} onClick={this.props.onClick} />);
     });
     return (
-      <div>
+      <div className={styles.list}>
         <DeselectAllItem onClick={this.props.onDeselectAll} />
         <div>{listItems}</div>
       </div>

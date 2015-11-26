@@ -2,6 +2,7 @@ import React from 'react'
 import {SelectListItemContent} from './ListItemContent'
 import {Glyphicon} from 'react-bootstrap'
 import ListItemWrapper from './ListItemWrapper'
+import styles from '../styles/left-list'
 
 var LeftListItem = React.createClass({
   render() {
@@ -14,9 +15,9 @@ var LeftListItem = React.createClass({
 var SelectAllItem = React.createClass({
   render() {
     return (
-      <div>
-        <span>Select All</span>
-        <Glyphicon glyph="chevron-right" onClick={this.props.onClick}/>
+      <div className={styles.selectAllBar} onClick={this.props.onClick}>
+        <span className={styles.selectAllLabel}>Select All</span>
+        <Glyphicon glyph="chevron-right"/>
       </div>
     )
   }
@@ -33,7 +34,7 @@ var LeftList = React.createClass({
     let listItems = this.props.items.map((item, i) =>
       <LeftListItem key={i} index={i} {...item} onClick={this.props.onClick}/>);
     return (
-      <div>
+      <div className={styles.list}>
         <SelectAllItem onClick={this.props.onSelectAll}/>
         <div>
           {listItems}

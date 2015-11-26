@@ -2,6 +2,7 @@ import React from 'react'
 import Immutable from 'immutable'
 import LeftList from './LeftList'
 import RightList from './RightList'
+import {Grid, Row, Col} from 'react-bootstrap'
 
 var DoubleList = React.createClass({
   getInitialState() {
@@ -39,12 +40,16 @@ var DoubleList = React.createClass({
   render() {
     let items = this.state.items;
     return (
-      <div>
-        <div>Select</div>
-        <LeftList items={items} onClick={this.onSelect} onSelectAll={this.onSelectAll}/>
-        <div>Deselect</div>
-        <RightList items={items} onClick={this.onDeselect} onDeselectAll={this.onDeselectAll}/>
-      </div>
+      <Grid>
+        <Row>
+          <Col sm={6}>
+            <LeftList items={items} onClick={this.onSelect} onSelectAll={this.onSelectAll}/>
+          </Col>
+          <Col sm={6}>
+            <RightList items={items} onClick={this.onDeselect} onDeselectAll={this.onDeselectAll}/>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 });

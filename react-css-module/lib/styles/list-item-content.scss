@@ -1,13 +1,22 @@
+$redbg: rgba(200, 0, 0, 0.1);
 
 .listItem {
   padding: 2px 0px;
   margin-bottom: 5px;
+  border: solid 1px rgba(0, 0, 0, 0);
+  &:hover {
+    background: $redbg;
+  }
 }
 
 .listItemActive {
   composes: listItem;
   background: #DFd;
   border: solid 1px #0F0;
+  &:hover {
+    background: $redbg;
+    border: solid 1px $redbg;
+  }
 }
 
 .listItemButton {
