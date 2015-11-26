@@ -1,47 +1,100 @@
 import React from 'react'
-import {Glyphicon} from 'react-bootstrap'
-import ListItemInfo from './ListItemInfo'
-import styles from '../styles/list-item'
+import {SelectListItemContent, DeselectListItemContent} from './ListItemContent'
+import Immutable from 'immutable'
 
-var ListItem = React.createClass({
+var ListWrapItem = React.createClass({
   propTypes: {
-    selected: React.PropTypes.bool,
-    disabled: React.PropTypes.bool,
-    label: React.PropTypes.string,
-    selectButton: React.PropTypes.element,
-    onClick: React.PropTypes.func
+    index: React.PropTypes.number,
+    onClick: React.PropTypes.func,
+    element: React.PropTypes.element
   },
 
-  getDefaultProps() {
-    return {selected: false, disabled: false};
+  onClick() {
+    let {index, onClick} = this.props;
+    return onClick(index);
   },
 
   render() {
-    let {selected, disabled, label, selectButton, onClick} = this.props;
-    selectButton = React.cloneElement(selectButton, {className: styles.listItemButton, onClick});
+    return React.cloneElement(this.props.element, {onClick: this.onClick})
+  }
+});
+
+var LeftListItem = React.createClass({
+  render() {
+    let {label, selected, index, onClick} = this.props;
+    let contentElement = <SelectListItemContent label={label} disabled={selected} />;
+    return <ListWrapItem index={index} onClick={onClick} element={contentElement} />;
+  }
+});
+
+var LeftList = React.createClass({
+  propTypes: {
+    items: React.PropTypes.object,
+    onClick: React.PropTypes.func
+  },
+
+  render() {
+    let listItems = this.props.items.map((item, i) =>
+      <LeftListItem key={i} index={i} {...item} onClick={this.props.onClick}/>);
+    return <div>{listItems}</div>
+  }
+});
+
+var RightListItem = React.createClass({
+  render() {
+    let {label, index, onClick} = this.props;
+    let contentElement = <DeselectListItemContent label={label} selected={true} />;
+    return <ListWrapItem index={index} onClick={onClick} element={contentElement} />
+  }
+});
+
+var RightList = React.createClass({
+  propTypes: {
+    items: React.PropTypes.object,
+    onClick: React.PropTypes.func
+  },
+
+  render() {
+    let listItems = [];
+    this.props.items.forEach(({label, selected}, i) => {
+      if(!selected) return;
+      listItems.push(<RightListItem key={label} label={label} index={i} onClick={this.props.onClick} />);
+    });
+    return <div>{listItems}</div>
+  }
+});
+
+var DoubleList = React.createClass({
+  getInitialState() {
+    let list = Immutable.List.of({label: 'Hello World'}, {label: "MMDDDSSSA"});
+    return {items: list};
+  },
+
+  updateIndex(index, selected) {
+    let items = this.state.items;
+    let newItem = Object.assign({}, items.get(index), {selected});
+    this.setState({items: items.set(index, newItem)});
+  },
+
+  onSelect(index) {
+    this.updateIndex(index, true);
+  },
+
+  onDeselect(index) {
+    this.updateIndex(index, false);
+  },
+
+  render() {
+    let items = this.state.items;
     return (
-      <div className={selected ? styles.listItemActive : styles.listItem}>
-        <ListItemInfo disabled={disabled} label={label} />
-        {selectButton}
+      <div>
+        <div>Select</div>
+        <LeftList items={items} onClick={this.onSelect} />
+        <div>Deselect</div>
+        <RightList items={items} onClick={this.onDeselect} />
       </div>
     );
   }
 });
 
-var SelectListItem = React.createClass({
-  render() {
-    let props = this.props;
-    let rightButton = <Glyphicon glyph="chevron-right"/>;
-    return <ListItem {...props} selectButton={rightButton} />;
-  }
-});
-
-var DeselectListItem = React.createClass({
-  render() {
-    let props = this.props;
-    let leftButton = <Glyphicon glyph="chevron-left"/>;
-    return <ListItem {...props} selectButton={leftButton} />;
-  }
-});
-
-export default {SelectListItem, DeselectListItem};
+export default DoubleList;
