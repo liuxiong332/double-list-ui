@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 import ListItemInfo from './components/ListItemInfo'
-import DoubleList from './components/ListItem'
+import DoubleList from './components/DoubleList'
 
 ReactDOM.render(
   <DoubleList />,
